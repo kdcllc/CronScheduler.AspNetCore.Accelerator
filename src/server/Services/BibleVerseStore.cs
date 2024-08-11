@@ -6,7 +6,7 @@ namespace CronSchedule.AspNetCore.Accelerator.Server.Services;
 public class BibleVerseStore
 {
     private static readonly Lazy<BibleVerseStore> _instance = new Lazy<BibleVerseStore>(() => new BibleVerseStore());
-    private readonly ConcurrentDictionary<string, BibleVerse> _bibleVerses = new ConcurrentDictionary<string, BibleVerse>();
+    private readonly ConcurrentDictionary<string, BibleVerse> _bibleVerses = new();
 
     private BibleVerseStore() { }
 

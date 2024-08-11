@@ -15,7 +15,7 @@ public class JobService (
 {
     public async Task<int> LoadJobsAsync(CancellationToken cancellationToken)
     {
-        var jobs = await repo.GetAllAsync(cancellationToken);
+        var jobs = (await repo.GetAllAsync(cancellationToken)).Where(x => !x.IsDeleted && !x.IsPaused).ToList();
         var jobsCount = 0;
 
         foreach (var job in jobs)

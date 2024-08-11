@@ -6,19 +6,21 @@ namespace CronSchedule.AspNetCore.Accelerator.Server.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class BibleController : ControllerBase
+public class BibleController(
+    BibleService bibleService,
+    BibleVerseStore store) : ControllerBase
 {
-    private readonly BibleService _bibleService;
-
-    public BibleController(BibleService bibleService)
-    {
-        _bibleService = bibleService;
-    }
-
     [HttpGet("verse")]
     public async Task<ActionResult<BibleVerse>> GetBibleVerse([FromQuery] string passage)
     {
-        var bibleVerse = await _bibleService.GetVerseAsync(passage);
+        var bibleVerse = await bibleService.GetVerseAsync(passage);
         return Ok(bibleVerse);
+    }
+
+    [HttpGet("verses")]
+    public ActionResult<IEnumerable<BibleVerse>> GetBibleVerses()
+    {
+        var bibleVerses = store.GetAllVerses();
+        return Ok(bibleVerses);
     }
 }
