@@ -7,11 +7,14 @@ namespace CronSchedule.AspNetCore.Accelerator.Server.Models
         [Key]
         public int Id { get; set; }
 
-        public string? Cron { get; set; }
+        [Required]
+        public string Cron { get; set; }
 
-        public string? TimeZone { get; set; }
+        [Required]
+        public string TimeZone { get; set; }
 
-        public string? Title { get; set; }
+        [Required]
+        public string Title { get; set; }
 
         public string? Data { get; set; }
 
