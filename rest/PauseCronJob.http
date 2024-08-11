@@ -1,0 +1,2 @@
+PUT https://localhost:7075/api/CronJob/pause/1
+Content-Type: application/json

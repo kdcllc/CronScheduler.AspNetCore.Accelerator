@@ -1,0 +1,15 @@
+POST https://localhost:7075/api/CronJob/create
+Content-Type: application/json
+
+{
+  "id": 1,
+  "cron": "0 0 * * *",
+  "timeZone": "UTC",
+  "title": "Create Cron Job",
+  "data": "Daneil 12:2",
+  "runImmediately": false,
+  "isPaused": false,
+  "isDeleted": false,
+  "updatedAt": "2024-08-11T17:05:43Z",
+  "createdAt": "2024-08-11T17:05:43Z"
+}
