@@ -1,8 +1,6 @@
-using CronSchedule.AspNetCore.Accelerator.Server.Models;
 using CronSchedule.AspNetCore.Accelerator.Server.Services;
 using CronSchedule.AspNetCore.Accelerator.Server.Repositories;
 using CronScheduler.Extensions.Scheduler;
-using Microsoft.Extensions.Logging;
 
 namespace CronSchedule.AspNetCore.Accelerator.Server.Jobs;
 
@@ -19,14 +17,25 @@ public class BibleCronJob(
 
     public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        logger.LogInformation("BibleCronJob is working.");
-
-        await jobRepository.CreateRunAsync(options.Id);
-
-        var verses = await bibleService.GetVerseAsync(options.Data);
-        if (verses != null)
+        try
         {
-            bibleVerseStore.AddOrUpdate(verses);
+            logger.LogInformation("BibleCronJob is working.");
+
+            await jobRepository.CreateRunAsync(options.Id, cancellationToken);
+
+            var verses = await bibleService.GetVerseAsync(options.Data);
+            if (verses != null)
+            {
+                bibleVerseStore.AddOrUpdate(verses);
+            }
+
+        logger.LogInformation("BibleCronJob is done.");
         }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "An error occurred executing the BibleCronJob.");
+            
+        }
+
     }
 }

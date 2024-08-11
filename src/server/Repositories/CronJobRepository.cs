@@ -13,65 +13,66 @@ public class CronJobRepository : ICronJobRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<CronJob>> GetAllAsync()
+    public async Task<IEnumerable<CronJob>> GetAllAsync(CancellationToken cancellationToken)
     {
-        return await _context.CronJobs.ToListAsync();
+        return await _context.CronJobs.ToListAsync(cancellationToken);
     }
 
-    public async Task<CronJob?> GetByIdAsync(int id)
+    public async Task<CronJob?> GetByIdAsync(int id, CancellationToken cancellationToken)
     {
-        return await _context.CronJobs.FindAsync(id);
+        return await _context.CronJobs.FindAsync(id, cancellationToken);
     }
 
-    public async Task AddAsync(CronJob cronJob)
+    public async Task AddAsync(CronJob cronJob, CancellationToken cancellationToken)
     {
-        await _context.CronJobs.AddAsync(cronJob);
-        await _context.SaveChangesAsync();
+        await _context.CronJobs.AddAsync(cronJob, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(CronJob cronJob)
+    public async Task UpdateAsync(CronJob cronJob, CancellationToken cancellationToken)
     {
         _context.CronJobs.Update(cronJob);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken)
     {
-        var cronJob = await _context.CronJobs.FindAsync(id);
+        var cronJob = await _context.CronJobs.FindAsync(id, cancellationToken);
         if (cronJob != null)
         {
             _context.CronJobs.Remove(cronJob);
             await _context.SaveChangesAsync();
         }
     }
-    public async Task<IEnumerable<CronJobRun>> GetAllRunsAsync()
+    public async Task<IEnumerable<CronJobRun>> GetAllRunsAsync(CancellationToken cancellationToken)
     {
-        return await _context.CronJobRuns.ToListAsync();
+        return await _context.CronJobRuns.ToListAsync(cancellationToken);
     }
 
-    public async Task<CronJobRun?> GetRunByIdAsync(int id)
+    public async Task<CronJobRun?> GetRunByIdAsync(int id, CancellationToken cancellationToken)
     {
-        return await _context.CronJobRuns.FindAsync(id);
+        return await _context.CronJobRuns.FindAsync(id, cancellationToken);
     }
 
-    public async Task<IEnumerable<CronJobRun>> GetRunsByCronJobIdAsync(int cronJobId)
+    public async Task<IEnumerable<CronJobRun>> GetRunsByCronJobIdAsync(int cronJobId, CancellationToken cancellationToken)
     {
-        return await _context.CronJobRuns.Where(run => run.CronJobId == cronJobId).ToListAsync();
+        return await _context.CronJobRuns.Where(run => run.CronJobId == cronJobId).ToListAsync(cancellationToken);
     }
 
-    public async Task AddRunAsync(CronJobRun cronJobRun)
+
+    public async Task AddRunAsync(CronJobRun cronJobRun, CancellationToken cancellationToken)
     {
-        await _context.CronJobRuns.AddAsync(cronJobRun);
-        await _context.SaveChangesAsync();
+        await _context.CronJobRuns.AddAsync(cronJobRun, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateRunAsync(CronJobRun cronJobRun)
+    public async Task UpdateRunAsync(CronJobRun cronJobRun, CancellationToken cancellationToken)
     {
         _context.CronJobRuns.Update(cronJobRun);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<CronJobRun> CreateRunAsync(int cronJobId)
+    public async Task<CronJobRun> CreateRunAsync(int cronJobId, CancellationToken cancellationToken)
     {
         var cronJobRun = new CronJobRun
         {
@@ -81,19 +82,19 @@ public class CronJobRepository : ICronJobRepository
             Ex = null // Assuming no exception initially
         };
 
-        await _context.CronJobRuns.AddAsync(cronJobRun);
-        await _context.SaveChangesAsync();
+        await _context.CronJobRuns.AddAsync(cronJobRun, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
 
         return cronJobRun;
     }
 
-    public async Task DeleteRunAsync(int id)
+    public async Task DeleteRunAsync(int id, CancellationToken cancellationToken)
     {
-        var cronJobRun = await _context.CronJobRuns.FindAsync(id);
+        var cronJobRun = await _context.CronJobRuns.FindAsync(id, cancellationToken);
         if (cronJobRun != null)
         {
             _context.CronJobRuns.Remove(cronJobRun);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }
