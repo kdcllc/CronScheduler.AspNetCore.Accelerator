@@ -44,4 +44,35 @@ public class CronJobRepository : ICronJobRepository
             await _context.SaveChangesAsync();
         }
     }
+    public async Task<IEnumerable<CronJobRun>> GetAllRunsAsync()
+    {
+        return await _context.CronJobRuns.ToListAsync();
+    }
+
+    public async Task<CronJobRun?> GetRunByIdAsync(int id)
+    {
+        return await _context.CronJobRuns.FindAsync(id);
+    }
+
+    public async Task AddRunAsync(CronJobRun cronJobRun)
+    {
+        await _context.CronJobRuns.AddAsync(cronJobRun);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdateRunAsync(CronJobRun cronJobRun)
+    {
+        _context.CronJobRuns.Update(cronJobRun);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task DeleteRunAsync(int id)
+    {
+        var cronJobRun = await _context.CronJobRuns.FindAsync(id);
+        if (cronJobRun != null)
+        {
+            _context.CronJobRuns.Remove(cronJobRun);
+            await _context.SaveChangesAsync();
+        }
+    }
 }

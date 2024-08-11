@@ -12,4 +12,13 @@ public interface ICronJobRepository
     Task UpdateAsync(CronJob cronJob);
     
     Task DeleteAsync(int id);
+    Task<IEnumerable<CronJobRun>> GetAllRunsAsync();
+
+    Task<CronJobRun?> GetRunByIdAsync(int id);
+    
+    Task AddRunAsync(CronJobRun cronJobRun);
+    
+    Task UpdateRunAsync(CronJobRun cronJobRun);
+    
+    Task DeleteRunAsync(int id);
 }
