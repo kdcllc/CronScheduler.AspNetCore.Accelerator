@@ -133,10 +133,10 @@ public class JobService (
             CronSchedule = schedule.Cron,
             Data = schedule?.Data ?? string.Empty,
             CronTimeZone = schedule?.TimeZone ?? string.Empty,
-            RunImmediately = !onStartUp && schedule.RunImmediately,
+            RunImmediately = !onStartUp && (schedule?.RunImmediately ?? false),
         };
 
-        var jobName = GetJobName(schedule.Id);
+        var jobName = GetJobName(schedule?.Id ?? 0);
 
         var logger = serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger<BibleCronJob>();
 
