@@ -1,0 +1,20 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+        {
+			"type": "dotnet",
+			"task": "build",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "dotnet: build"
+		},
+		{
+			"type": "dotnet",
+			"task": "build ${workspaceFolder}/src/server/server.csproj",
+			"file": "${workspaceFolder}/src/server/server.csproj",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "dotnet: build ${workspaceFolder}/src/server/server.csproj"
+		}
+	]
+}
