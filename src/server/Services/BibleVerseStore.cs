@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using CronSchedule.AspNetCore.Accelerator.Server.Models;
 
 namespace CronSchedule.AspNetCore.Accelerator.Server.Services;
@@ -5,28 +6,23 @@ namespace CronSchedule.AspNetCore.Accelerator.Server.Services;
 public class BibleVerseStore
 {
     private static readonly Lazy<BibleVerseStore> _instance = new Lazy<BibleVerseStore>(() => new BibleVerseStore());
-    private readonly object _lock = new object();
-    private IEnumerable<BibleVerse>? _bibleVerses;
+    private readonly ConcurrentDictionary<string, BibleVerse> _bibleVerses = new ConcurrentDictionary<string, BibleVerse>();
 
     private BibleVerseStore() { }
 
     public static BibleVerseStore Instance => _instance.Value;
 
-    public IEnumerable<BibleVerse>? BibleVerses
+    public void AddOrUpdate(IEnumerable<BibleVerse> bibleVerses)
     {
-        get
+        foreach (var verse in bibleVerses)
         {
-            lock (_lock)
-            {
-                return _bibleVerses;
-            }
+            var key = $"{verse.BookName}-{verse.Chapter}-{verse.Verse}";
+            _bibleVerses.AddOrUpdate(key, verse, (k, v) => verse);
         }
-        set
-        {
-            lock (_lock)
-            {
-                _bibleVerses = value;
-            }
-        }
+    }
+
+    public IEnumerable<BibleVerse> GetAllVerses()
+    {
+        return _bibleVerses.Values;
     }
 }
