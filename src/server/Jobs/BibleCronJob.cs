@@ -6,35 +6,27 @@ using Microsoft.Extensions.Logging;
 
 namespace CronSchedule.AspNetCore.Accelerator.Server.Jobs;
 
-public class BibleCronJob : IScheduledJob
+public class BibleCronJob(
+    string jobName,
+    BibleCronJobOptions options,
+    BibleService bibleService,
+    BibleVerseStore bibleVerseStore,
+    ICronJobRepository jobRepository,
+    ILogger<BibleCronJob> logger) : IScheduledJob
 {
-    private readonly BibleService _bibleService;
-    private readonly BibleVerseStore _bibleVerseStore;
-    private readonly ILogger<BibleCronJob> _logger;
-
-    public BibleCronJob(
-        string jobName,
-        BibleService bibleService,
-        BibleVerseStore bibleVerseStore,
-        ICronJobRepository jobRepository,
-        ILogger<BibleCronJob> logger)
-    {
-        Name = jobName;
-        _bibleService = bibleService;
-        _bibleVerseStore = bibleVerseStore;
-        _logger = logger;
-    }
-
-    public string Name { get; }
+    
+    public string Name { get; } = jobName;
 
     public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        _logger.LogInformation("BibleCronJob is working.");
+        logger.LogInformation("BibleCronJob is working.");
 
-        var verses = await _bibleService.GetVerseAsync("John 3:16");
+        await jobRepository.UpdateRunAsync(_options.Id);
+
+        var verses = await bibleService.GetVerseAsync(options.Data);
         if (verses != null)
         {
-            _bibleVerseStore.AddOrUpdate(verses);
+            bibleVerseStore.AddOrUpdate(verses);
         }
     }
 }

@@ -54,6 +54,11 @@ public class CronJobRepository : ICronJobRepository
         return await _context.CronJobRuns.FindAsync(id);
     }
 
+    public async Task<IEnumerable<CronJobRun>> GetRunsByCronJobIdAsync(int cronJobId)
+    {
+        return await _context.CronJobRuns.Where(run => run.CronJobId == cronJobId).ToListAsync();
+    }
+
     public async Task AddRunAsync(CronJobRun cronJobRun)
     {
         await _context.CronJobRuns.AddAsync(cronJobRun);

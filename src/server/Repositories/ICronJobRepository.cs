@@ -15,6 +15,7 @@ public interface ICronJobRepository
     Task<IEnumerable<CronJobRun>> GetAllRunsAsync();
 
     Task<CronJobRun?> GetRunByIdAsync(int id);
+    Task<IEnumerable<CronJobRun>> GetRunsByCronJobIdAsync(int cronJobId);
     
     Task AddRunAsync(CronJobRun cronJobRun);
     
