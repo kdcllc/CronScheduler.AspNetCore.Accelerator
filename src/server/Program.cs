@@ -13,6 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<ICronJobRepository, CronJobRepository>();
 builder.Services.AddHttpClient<BibleService>();
+builder.Services.AddSingleton(BibleVerseStore.Instance);
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
