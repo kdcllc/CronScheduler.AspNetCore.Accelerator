@@ -1,5 +1,6 @@
 
 using CronSchedule.AspNetCore.Accelerator.Server.Data;
+using CronSchedule.AspNetCore.Accelerator.Server.Jobs;
 using CronSchedule.AspNetCore.Accelerator.Server.Repositories;
 using CronSchedule.AspNetCore.Accelerator.Server.Services;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<ICronJobRepository, CronJobRepository>();
 builder.Services.AddHttpClient<BibleService>();
 builder.Services.AddSingleton(BibleVerseStore.Instance);
+builder.Services.AddTransient<IJobService, JobService>();
+builder.Services.AddStartupJob<StartupJob>();
 
 builder.Services.AddScheduler(builder =>
        {
@@ -61,4 +64,5 @@ using (var scope = app.Services.CreateScope())
     dbContext.Database.EnsureCreated();
 }
 
+await app.RunStartupJobsAsync(); 
 await app.RunAsync();
