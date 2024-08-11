@@ -1,4 +1,7 @@
 
+using CronSchedule.AspNetCore.Accelerator.Server.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace CronSchedule.AspNetCore.Accelerator.Server
 {
     public class Program
@@ -8,9 +11,12 @@ namespace CronSchedule.AspNetCore.Accelerator.Server
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            // Configure EF Core with SQLite
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
