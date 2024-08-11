@@ -28,4 +28,6 @@ public interface ICronJobRepository
     Task<CronJobRun?> CreateRunAsync(int cronJobId, CancellationToken cancellationToken);
     
     Task UpdateLastRunAsync(int cronJobRunId, CancellationToken cancellationToken);
+
+    Task UpdateExAsync(int cronJobRunId, string ex, CancellationToken cancellationToken);
 }

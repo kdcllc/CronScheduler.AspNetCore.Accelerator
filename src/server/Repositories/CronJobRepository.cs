@@ -105,11 +105,23 @@ public class CronJobRepository : ICronJobRepository
             await _context.SaveChangesAsync(cancellationToken);
         }
     }
+
     public async Task UpdateLastRunAsync(int cronJobRunId,CancellationToken cancellationToken)
     {
         var cronJobRun = (await GetRunsByCronJobIdAsync(cronJobRunId, cancellationToken)).FirstOrDefault();
         if (cronJobRun != null)
         {   
+            cronJobRun.RunEndedAt = DateTimeOffset.UtcNow;
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+    }
+
+    public async Task UpdateExAsync(int cronJobRunId, string ex, CancellationToken cancellationToken)
+    {
+        var cronJobRun = (await GetRunsByCronJobIdAsync(cronJobRunId, cancellationToken)).FirstOrDefault();
+        if (cronJobRun != null)
+        {   
+            cronJobRun.Ex = ex;
             cronJobRun.RunEndedAt = DateTimeOffset.UtcNow;
             await _context.SaveChangesAsync(cancellationToken);
         }

@@ -29,7 +29,9 @@ public class BibleCronJob(
                 bibleVerseStore.AddOrUpdate(verses);
             }
 
-        logger.LogInformation("BibleCronJob is done.");
+            await jobRepository.UpdateLastRunAsync(options.Id, cancellationToken);
+            
+            logger.LogInformation("BibleCronJob is done.");
         }
         catch (Exception ex)
         {
