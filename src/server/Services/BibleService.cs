@@ -1,3 +1,6 @@
+using System.Text.Json;
+using CronSchedule.AspNetCore.Accelerator.Server.Models;
+
 namespace CronSchedule.AspNetCore.Accelerator.Server.Services;
 
 public class BibleService
@@ -9,10 +12,12 @@ public class BibleService
         _httpClient = httpClient;
     }
 
-    public async Task<string> GetVerseAsync(string passage)
+    public async Task<IEnumerable<BibleVerse>?> GetVerseAsync(string passage)
     {
         var response = await _httpClient.GetAsync($"https://labs.bible.org/api/?passage={passage}&type=json");
         response.EnsureSuccessStatusCode();
-        return await response.Content.ReadAsStringAsync();
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+        var bibleVerses = JsonSerializer.Deserialize<List<BibleVerse>>(jsonResponse);
+        return bibleVerses;
     }
 }

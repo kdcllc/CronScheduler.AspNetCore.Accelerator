@@ -1,3 +1,4 @@
+using CronSchedule.AspNetCore.Accelerator.Server.Models;
 using CronSchedule.AspNetCore.Accelerator.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,9 +16,9 @@ public class BibleController : ControllerBase
     }
 
     [HttpGet("verse")]
-    public async Task<ActionResult<string>> GetBibleVerse([FromQuery] string passage)
+    public async Task<ActionResult<BibleVerse>> GetBibleVerse([FromQuery] string passage)
     {
-        var verse = await _bibleService.GetVerseAsync(passage);
-        return Ok(verse);
+        var bibleVerse = await _bibleService.GetVerseAsync(passage);
+        return Ok(bibleVerse);
     }
 }
