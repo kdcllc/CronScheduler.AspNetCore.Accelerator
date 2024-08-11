@@ -1,6 +1,14 @@
 # CronScheduler.AspNetCore "Accelerator" - Server
 
-This project is part of the CronScheduler.AspNetCore "Accelerator" solution. It provides the backend services for scheduling and running cron jobs using ASP.NET Core.
+This project is part of the [`CronScheduler.AspNetCore`](https://github.com/kdcllc/CronScheduler.AspNetCore) "Accelerator" solution. It provides the backend services for scheduling and running cron jobs using ASP.NET Core.
+
+![I Stand With Israel](../../img/IStandWithIsrael.png)
+
+[![buymeacoffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/vyve0og)
+
+## Give a Star! :star:
+
+If you like or are using this project to learn or start your solution, please give it a star. Thanks!
 
 ## Table of Contents
 

@@ -1,6 +1,14 @@
 # CronScheduler.AspNetCore "Accelerator"
 
-The purpose for this repo is to provide with an accelerator code for `CronScheduler.AspNetCore` scheduler for .Net Core projects.
+The purpose for this repo is to provide with an accelerator code for [`CronScheduler.AspNetCore`](https://github.com/kdcllc/CronScheduler.AspNetCore) scheduler for .Net Core projects.
+
+![I Stand With Israel](./img/IStandWithIsrael.png)
+
+[![buymeacoffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/vyve0og)
+
+## Give a Star! :star:
+
+If you like or are using this project to learn or start your solution, please give it a star. Thanks!
 
 
 ## SPA templates
