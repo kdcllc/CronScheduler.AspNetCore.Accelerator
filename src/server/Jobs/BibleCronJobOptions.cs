@@ -12,6 +12,6 @@ public class BibleCronJobOptions : SchedulerOptions
     /// <summary>
     ///  Verses.
     /// </summary>
-    public string Data { get; set; }
+    public string Data { get; set; } = string.Empty;
 
 }
