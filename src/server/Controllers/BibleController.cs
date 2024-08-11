@@ -1,5 +1,5 @@
-using CronSchedule.AspNetCore.Accelerator.Server.Models;
 using CronSchedule.AspNetCore.Accelerator.Server.Services;
+using CronSchedule.AspNetCore.Accelerator.Server.Services.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CronSchedule.AspNetCore.Accelerator.Server.Controllers;

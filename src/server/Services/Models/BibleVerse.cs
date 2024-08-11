@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace CronSchedule.AspNetCore.Accelerator.Server.Models;
+namespace CronSchedule.AspNetCore.Accelerator.Server.Services.Models;
 
 public class BibleVerse
 {

@@ -1,5 +1,5 @@
 using System.Text.Json;
-using CronSchedule.AspNetCore.Accelerator.Server.Models;
+using CronSchedule.AspNetCore.Accelerator.Server.Services.Models;
 
 namespace CronSchedule.AspNetCore.Accelerator.Server.Services;
 
