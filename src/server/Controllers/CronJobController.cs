@@ -11,20 +11,11 @@ public class CronJobController : ControllerBase
 {
     private readonly ICronJobRepository _repository;
 
-    private readonly BibleService _bibleService;
-
-    public CronJobController(ICronJobRepository repository, BibleService bibleService)
+    public CronJobController(ICronJobRepository repository)
     {
-        _bibleService = bibleService;
         _repository = repository;
     }
 
-    [HttpGet("bibleverse")]
-    public async Task<ActionResult<string>> GetBibleVerse([FromQuery] string passage)
-    {
-        var verse = await _bibleService.GetVerseAsync(passage);
-        return Ok(verse);
-    }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<CronJob>>> GetAll()
