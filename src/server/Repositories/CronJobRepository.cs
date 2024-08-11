@@ -72,20 +72,28 @@ public class CronJobRepository : ICronJobRepository
         await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<CronJobRun> CreateRunAsync(int cronJobId, CancellationToken cancellationToken)
+    public async Task<CronJobRun?> CreateRunAsync(int cronJobId, CancellationToken cancellationToken)
     {
-        var cronJobRun = new CronJobRun
+        var found = await GetRunsByCronJobIdAsync(cronJobId, cancellationToken);
+
+        if (!found.Any())    
         {
-            CronJobId = cronJobId,
-            RunStartedAt = DateTimeOffset.UtcNow,
-            RunEndedAt = DateTimeOffset.UtcNow, // This can be updated later when the run actually ends
-            Ex = null // Assuming no exception initially
-        };
+            var cronJobRun = new CronJobRun
+            {
+                CronJobId = cronJobId,
+                RunStartedAt = DateTimeOffset.UtcNow,
+                RunEndedAt = DateTimeOffset.UtcNow, // This can be updated later when the run actually ends
+                Ex = null // Assuming no exception initially
+            };
 
-        await _context.CronJobRuns.AddAsync(cronJobRun, cancellationToken);
-        await _context.SaveChangesAsync(cancellationToken);
+            await _context.CronJobRuns.AddAsync(cronJobRun, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
 
-        return cronJobRun;
+            return cronJobRun;
+        }
+
+
+        return found.FirstOrDefault();
     }
 
     public async Task DeleteRunAsync(int id, CancellationToken cancellationToken)
@@ -94,6 +102,15 @@ public class CronJobRepository : ICronJobRepository
         if (cronJobRun != null)
         {
             _context.CronJobRuns.Remove(cronJobRun);
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+    }
+    public async Task UpdateLastRunAsync(int cronJobRunId,CancellationToken cancellationToken)
+    {
+        var cronJobRun = (await GetRunsByCronJobIdAsync(cronJobRunId, cancellationToken)).FirstOrDefault();
+        if (cronJobRun != null)
+        {   
+            cronJobRun.RunEndedAt = DateTimeOffset.UtcNow;
             await _context.SaveChangesAsync(cancellationToken);
         }
     }

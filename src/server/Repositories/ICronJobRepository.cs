@@ -12,7 +12,7 @@ public interface ICronJobRepository
     Task UpdateAsync(CronJob cronJob, CancellationToken cancellationToken);
     
     Task DeleteAsync(int id, CancellationToken cancellationToken);
-    
+
     Task<IEnumerable<CronJobRun>> GetAllRunsAsync(CancellationToken cancellationToken);
 
     Task<CronJobRun?> GetRunByIdAsync(int id, CancellationToken cancellationToken);
@@ -25,5 +25,7 @@ public interface ICronJobRepository
     
     Task DeleteRunAsync(int id, CancellationToken cancellationToken);
 
-    Task<CronJobRun> CreateRunAsync(int cronJobId, CancellationToken cancellationToken);
+    Task<CronJobRun?> CreateRunAsync(int cronJobId, CancellationToken cancellationToken);
+    
+    Task UpdateLastRunAsync(int cronJobRunId, CancellationToken cancellationToken);
 }
