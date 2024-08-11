@@ -140,7 +140,7 @@ public class JobService (
 
         var logger = serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger<BibleCronJob>();
 
-        var jobService = serviceProvider.GetRequiredService<JobService>();
+        var jobService = serviceProvider.GetRequiredService<IJobService>();
         var bibleService = serviceProvider.GetRequiredService<BibleService>();
         var bibleVerseStore = serviceProvider.GetRequiredService<BibleVerseStore>();
         

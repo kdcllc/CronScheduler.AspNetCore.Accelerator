@@ -1,2 +1,0 @@
-GET https://localhost:7075/api/CronJob/1
-Accept: application/json
