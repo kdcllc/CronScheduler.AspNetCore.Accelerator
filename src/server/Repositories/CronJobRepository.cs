@@ -71,6 +71,22 @@ public class CronJobRepository : ICronJobRepository
         await _context.SaveChangesAsync();
     }
 
+    public async Task<CronJobRun> CreateRunAsync(int cronJobId)
+    {
+        var cronJobRun = new CronJobRun
+        {
+            CronJobId = cronJobId,
+            RunStartedAt = DateTimeOffset.UtcNow,
+            RunEndedAt = DateTimeOffset.UtcNow, // This can be updated later when the run actually ends
+            Ex = null // Assuming no exception initially
+        };
+
+        await _context.CronJobRuns.AddAsync(cronJobRun);
+        await _context.SaveChangesAsync();
+
+        return cronJobRun;
+    }
+
     public async Task DeleteRunAsync(int id)
     {
         var cronJobRun = await _context.CronJobRuns.FindAsync(id);

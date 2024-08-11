@@ -22,4 +22,5 @@ public interface ICronJobRepository
     Task UpdateRunAsync(CronJobRun cronJobRun);
     
     Task DeleteRunAsync(int id);
+    Task<CronJobRun> CreateRunAsync(int cronJobId);
 }

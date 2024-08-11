@@ -21,7 +21,7 @@ public class BibleCronJob(
     {
         logger.LogInformation("BibleCronJob is working.");
 
-        await jobRepository.UpdateRunAsync(_options.Id);
+        await jobRepository.CreateRunAsync(options.Id);
 
         var verses = await bibleService.GetVerseAsync(options.Data);
         if (verses != null)
