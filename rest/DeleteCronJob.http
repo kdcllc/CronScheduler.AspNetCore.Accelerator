@@ -1,1 +1,1 @@
-DELETE https://localhost:5001/api/CronJob/1
+DELETE https://localhost:7075/api/CronJob/1
