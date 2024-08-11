@@ -1,0 +1,15 @@
+PUT https://localhost:5001/api/CronJob/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "cron": "0 0 * * *",
+  "timeZone": "UTC",
+  "title": "Updated Cron Job",
+  "data": "Updated data",
+  "runImmediately": false,
+  "isPaused": false,
+  "isDeleted": false,
+  "updatedAt": "2024-08-11T17:05:43-0400",
+  "createdAt": "2024-08-11T17:05:43-0400"
+}
