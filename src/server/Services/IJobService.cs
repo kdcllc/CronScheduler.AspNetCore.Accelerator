@@ -4,6 +4,8 @@ namespace CronSchedule.AspNetCore.Accelerator.Server.Services;
 
 public interface IJobService
 {
+    Task<IEnumerable<CronJobRun>> GetJobRunsAsync(int cronJobId, CancellationToken cancellationToken);
+
     Task<int> LoadJobsAsync(CancellationToken cancellationToken);
 
     Task SetJobStartAsync(int cronJobId, CancellationToken cancellationToken);

@@ -13,6 +13,11 @@ public class JobService (
     IServiceProvider serviceProvider,
     ILogger<JobService> logger) : IJobService
 {
+    public async Task<IEnumerable<CronJobRun>> GetJobRunsAsync(int cronJobId, CancellationToken cancellationToken)
+    {
+        return await repo.GetRunsByCronJobIdAsync(cronJobId, cancellationToken);
+    }
+
     public async Task<int> LoadJobsAsync(CancellationToken cancellationToken)
     {
         var jobs = (await repo.GetAllAsync(cancellationToken)).Where(x => !x.IsDeleted && !x.IsPaused).ToList();

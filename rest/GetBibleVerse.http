@@ -1,3 +1,3 @@
 ### Get Bible Verse
-GET https://localhost:7075/api/Bible/verse?passage=John 3
+GET https://localhost:7075/api/Bible/verse?passage=Daniel 12:2
 Accept: application/json
