@@ -11,6 +11,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<ICronJobRepository, CronJobRepository>();
+builder.Services.AddHttpClient<BibleService>();
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();

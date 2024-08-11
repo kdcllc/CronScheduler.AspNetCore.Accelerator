@@ -1,5 +1,6 @@
 using CronSchedule.AspNetCore.Accelerator.Server.Models;
 using CronSchedule.AspNetCore.Accelerator.Server.Repositories;
+using CronSchedule.AspNetCore.Accelerator.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CronSchedule.AspNetCore.Accelerator.Server.Controllers;
@@ -10,9 +11,19 @@ public class CronJobController : ControllerBase
 {
     private readonly ICronJobRepository _repository;
 
-    public CronJobController(ICronJobRepository repository)
+    private readonly BibleService _bibleService;
+
+    public CronJobController(ICronJobRepository repository, BibleService bibleService)
     {
+        _bibleService = bibleService;
         _repository = repository;
+    }
+
+    [HttpGet("bibleverse")]
+    public async Task<ActionResult<string>> GetBibleVerse([FromQuery] string passage)
+    {
+        var verse = await _bibleService.GetVerseAsync(passage);
+        return Ok(verse);
     }
 
     [HttpGet]
