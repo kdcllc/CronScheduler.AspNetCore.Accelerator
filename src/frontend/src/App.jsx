@@ -1,8 +1,15 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import TimeZoneDropdown from './components/TimeZoneDropdown';
+import moment from 'moment-timezone';
 
 function App() {
     const [forecasts, setForecasts] = useState();
+    const [timeZone, setTimeZone] = useState(moment.tz.guess());
+
+    const handleTimeZoneChange = (newTimeZone) => {
+        setTimeZone(newTimeZone);
+    };
 
     useEffect(() => {
         populateWeatherData();
@@ -35,6 +42,8 @@ function App() {
         <div>
             <h1 id="tableLabel">Weather forecast</h1>
             <p>This component demonstrates fetching data from the server.</p>
+            <TimeZoneDropdown onTimeZoneChange={handleTimeZoneChange} defaultTimezone={timeZone} />
+            {timeZone}
             {contents}
         </div>
     );

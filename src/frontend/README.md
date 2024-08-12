@@ -36,6 +36,12 @@ The project is organized as follows:
 
 Configuration settings for the application are stored in the `vite.config.js` file. This file includes settings for the development server, build options, and plugins.
 
+## Dependences
+
+```bash
+    npm install cron-converter react-js-cron moment moment-timezone
+```
+
 ## Available Scripts
 
 In the project directory, you can run the following scripts:
@@ -67,10 +73,7 @@ npm run dev
 
 This will start the application and make it available at `http://localhost:5173`.
 
-## Contributing
-
-Contributions are welcome! Please read the [contributing guidelines](../CONTRIBUTING.md) for more information.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](../LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](../../LICENSE) file for details.

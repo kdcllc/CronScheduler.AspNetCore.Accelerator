@@ -16,7 +16,8 @@
             },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
+                "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy",
+                "DOTNET_USE_POLLING_FILE_WATCHER" : "1"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
