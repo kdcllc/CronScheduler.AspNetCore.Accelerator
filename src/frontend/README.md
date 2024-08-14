@@ -1,79 +1,50 @@
-# CronScheduler.AspNetCore "Accelerator" - Frontend
+# React + TypeScript + Vite
 
-This project is part of the CronScheduler.AspNetCore "Accelerator" solution. It provides the frontend interface for managing and viewing cron jobs using React and Vite.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Table of Contents
+Currently, two official plugins are available:
 
-- [Getting Started](#getting-started)
-- [Project Structure](#project-structure)
-- [Configuration](#configuration)
-- [Available Scripts](#available-scripts)
-- [Running the Application](#running-the-application)
-- [Contributing](#contributing)
-- [License](#license)
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Getting Started
+## Expanding the ESLint configuration
 
-To get started with this project, you will need to have the following tools installed:
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- [Node.js](https://nodejs.org/) (version 16 or later)
-- [npm](https://www.npmjs.com/) (version 7 or later)
+- Configure the top-level `parserOptions` property like this:
 
-## Project Structure
-
-The project is organized as follows:
-
-- `public/`: Contains static assets such as images and icons.
-- `src/`: Contains the source code for the React application.
-  - `assets/`: Contains static assets used in the application.
-  - `components/`: Contains React components.
-  - `pages/`: Contains the main pages of the application.
-  - `App.jsx`: The main application component.
-  - `main.jsx`: The entry point for the React application.
-- `index.html`: The main HTML file for the application.
-
-## Configuration
-
-Configuration settings for the application are stored in the `vite.config.js` file. This file includes settings for the development server, build options, and plugins.
-
-## Dependences
-
-```bash
-    npm install cron-converter react-js-cron moment moment-timezone
+```js
+export default tseslint.config({
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
 ```
 
-## Available Scripts
+- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
+- Optionally add `...tseslint.configs.stylisticTypeChecked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-In the project directory, you can run the following scripts:
+```js
+// eslint.config.js
+import react from 'eslint-plugin-react'
 
-### `npm install`
-
-Installs the project dependencies.
-
-### `npm run dev`
-
-Runs the application in development mode. Open [http://localhost:5173](http://localhost:5173) to view it in the browser. The page will reload if you make edits.
-
-### `npm run build`
-
-Builds the application for production to the `dist` folder. It correctly bundles React in production mode and optimizes the build for the best performance.
-
-### `npm run preview`
-
-Serves the production build locally. This is useful for testing the production build before deploying.
-
-## Running the Application
-
-To run the application, use the following commands:
-
-```bash
-npm install
-npm run dev
+export default tseslint.config({
+  // Set the react version
+  settings: { react: { version: '18.3' } },
+  plugins: {
+    // Add the react plugin
+    react,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended rules
+    ...react.configs.recommended.rules,
+    ...react.configs['jsx-runtime'].rules,
+  },
+})
 ```
-
-This will start the application and make it available at `http://localhost:5173`.
-
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](../../LICENSE) file for details.
