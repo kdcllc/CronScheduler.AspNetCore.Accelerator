@@ -1,5 +1,7 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import './App.css';
+import TimeZoneDropdown from './components/TimeZoneDropdown';
 
 interface Forecast {
     date: string;
@@ -11,6 +13,22 @@ interface Forecast {
 function App() {
     const [forecasts, setForecasts] = useState<Forecast[]>();
 
+    const [timezone, setTimezone] = useState<string>('');
+    
+    const getTimeZone = (): string => {
+        return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    }
+    
+    const handleTimezoneChange = (selectedTimezone: string) => {
+        setTimezone(selectedTimezone);
+    };
+
+    useEffect(() => {
+        const userTimezone = getTimeZone();
+        setTimezone(userTimezone);
+    }, []);
+
+      
     useEffect(() => {
         populateWeatherData();
     }, []);
@@ -39,7 +57,13 @@ function App() {
         </table>;
 
     return (
+
         <div>
+            <div>
+                <h1>Cron Schedule</h1>
+                <p><TimeZoneDropdown onTimeZoneChange={handleTimezoneChange} defaultTimezone={timezone} /></p>
+                <p>{timezone}</p>
+            </div>
             <h1 id="tableLabel">Weather forecast</h1>
             <p>This component demonstrates fetching data from the server.</p>
             {contents}

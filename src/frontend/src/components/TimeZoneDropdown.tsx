@@ -50,7 +50,6 @@ const TimeZoneDropdown = ({ onTimeZoneChange, defaultTimezone }) => {
             <label id={dropdownId}>Time Zones</label>
             <Dropdown
                 aria-labelledby={dropdownId}
-                label="Select a timezone"
                 onActiveOptionChange={onActiveOptionChange}
                 defaultSelectedOptions={[selectedTimezone]}
                 defaultValue={selectedTimezone}
